@@ -1,23 +1,41 @@
 // General Mixins
 //
+// --------------------------------------------------------------------------------
 
-@mixin absolutepos($top: auto, $right: auto, $bottom: auto, $left: auto) {
-	position: absolute;
+
+
+// Absolute and Fixed Positioning
+// --------------------------------------------------------------------------------
+
+@mixin pos($top: auto, $right: auto, $bottom: auto, $left: auto, $pos: absolute) {
+	position: $pos;
 	top: $top;
 	right: $right;
 	bottom: $bottom;
 	left: $left;
 }
-@mixin abspos($top: null, $right: null, $bottom: null, $left: null) {
+@mixin positioning($pos: absolute, $top: null, $right: null, $bottom: null, $left: null) {
 	@if $left { 
-		@include absolutepos($top,$right,$bottom,$left);
+		@include pos($top,$right,$bottom,$left,$pos);
 	} @else if $bottom { 
-		@include absolutepos($top,$right,$bottom,$right);
+		@include pos($top,$right,$bottom,$right,$pos);
 	} @else if $right { 
-		@include absolutepos($top,$right,$top,$right);
+		@include pos($top,$right,$top,$right,$pos);
 	} @else if $top { 
-		@include absolutepos($top,$top,$top,$top);
+		@include pos($top,$top,$top,$top,$pos);
 	} @else { 
-		@include absolutepos();
+		@include pos();
 	}
 }
+@mixin abspos($top: null, $right: null, $bottom: null, $left: null) {
+	$pos: absolute;
+	@include positioning($pos,$top,$right,$bottom,$left);
+}
+@mixin fixpos($top: null, $right: null, $bottom: null, $left: null) {
+	$pos: fixed;
+	@include positioning($pos,$top,$right,$bottom,$left);
+}
+
+
+// Shapes (coming soon)
+// --------------------------------------------------------------------------------
