@@ -1,0 +1,23 @@
+// General Mixins
+//
+
+@mixin absolutepos($top: auto, $right: auto, $bottom: auto, $left: auto) {
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+@mixin abspos($top: null, $right: null, $bottom: null, $left: null) {
+	@if $left { 
+		@include absolutepos($top,$right,$bottom,$left);
+	} @else if $bottom { 
+		@include absolutepos($top,$right,$bottom,$right);
+	} @else if $right { 
+		@include absolutepos($top,$right,$top,$right);
+	} @else if $top { 
+		@include absolutepos($top,$top,$top,$top);
+	} @else { 
+		@include absolutepos();
+	}
+}
